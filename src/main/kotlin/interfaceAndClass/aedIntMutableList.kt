@@ -41,6 +41,7 @@ class AEDIntArrayListMutable: AEDIntMutableList{
     }
 
     override fun add(index: Int, element: Int) {
+		if (size == elements.size) increaseCapacity()
         System.arraycopy(elements, index, elements, index+1, size-index)
         size++
         elements[index] = element
@@ -59,7 +60,7 @@ class AEDIntArrayListMutable: AEDIntMutableList{
 
     override fun removeAt(index: Int): Int {
         val element = elements[index]
-        System.arraycopy(elements, index+1, elements, index, size-index-1)
+        System.arraycopy(elements, index+1, elements, index, size-index)
         size--
         return element
     }
