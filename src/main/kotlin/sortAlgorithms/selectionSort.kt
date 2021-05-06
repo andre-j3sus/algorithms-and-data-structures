@@ -1,6 +1,9 @@
 package sortAlgorithms
 
 
+/**
+ * Time Complexity: O(n²)
+ */
 fun selectionSort(a: IntArray){
     var currentIdx = 0
 
@@ -10,6 +13,9 @@ fun selectionSort(a: IntArray){
 }
 
 
+/**
+ * Time Complexity: O(n²)
+ */
 fun minIdx(a:IntArray, l:Int, r:Int):Int{
     var minIdx = l
     for (i in l..r){

@@ -1,6 +1,9 @@
 package sortAlgorithms
 
 
+/**
+ * Time Complexity: O(n²)
+ */
 fun bubbleSort(a: IntArray){
     var switched = true
 

@@ -1,6 +1,8 @@
 package sortAlgorithms
 
-
+/**
+ * Time Complexity: O(n²)
+ */
 fun insertionSort(a: IntArray){
     for (i in 1 until a.size){
         val value = a[i]

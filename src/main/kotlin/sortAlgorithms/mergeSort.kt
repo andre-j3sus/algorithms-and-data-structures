@@ -1,5 +1,8 @@
 package sortAlgorithms
 
+/**
+ * Time Complexity: O(n)
+ */
 private fun merge(newArray: IntArray, l:Int, a:IntArray, b:IntArray){
     var aIdx = 0
     var bIdx = 0
@@ -18,18 +21,26 @@ private fun merge(newArray: IntArray, l:Int, a:IntArray, b:IntArray){
     }
 }
 
-private fun merge2(a:IntArray, l:Int, mid:Int, r:Int){
+
+/**
+ * Time Complexity: O(n)
+ */
+private fun mergeLeftAndRight(a:IntArray, l:Int, mid:Int, r:Int){
     val leftArray = a.copyOfRange(l, mid+1) // toIndex -> exclusive
     val rightArray = a.copyOfRange(mid+1, r+1)
     merge(a, l, leftArray, rightArray)
 }
 
+
+/**
+ * Time Complexity: O(nlog₂n)
+ */
 private fun mergeSort(a: IntArray, l: Int, r: Int){
     if (l < r){
         val mid = l + (r-l)/2
         mergeSort(a, l, mid)
         mergeSort(a, mid+1, r)
-        merge2(a, l, mid, r)
+        mergeLeftAndRight(a, l, mid, r) // O(n)
     }
 }
 
