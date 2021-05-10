@@ -44,6 +44,7 @@ fun buildMaxHeap(a: IntArray){
     }
 }
 
+
 fun main() {
     val a = intArrayOf(-2, -9, 4, -3, 0, 19, 14, -20, 5, 2)
     heapSort(a)
