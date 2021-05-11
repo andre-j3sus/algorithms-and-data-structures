@@ -2,7 +2,7 @@ package sortAlgorithms
 
 
 /**
- * Time Complexity: Θ(n)
+ * Time Complexity: O(n)
  *
  * Implemented by me and my colleague Nyckollas
  */
