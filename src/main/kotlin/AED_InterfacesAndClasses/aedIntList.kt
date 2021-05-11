@@ -1,4 +1,4 @@
-package interfaceAndClass
+package AED_InterfacesAndClasses
 
 interface AEDIntList{
     val size: Int
