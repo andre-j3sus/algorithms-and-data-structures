@@ -1,6 +1,6 @@
 package linkedList
 
-import AED_InterfacesAndClasses.AEDMutableList
+import AED_Lists.AEDMutableList
 
 // Double Linked List,  circular and with sentinel
 

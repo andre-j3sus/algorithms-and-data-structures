@@ -1,5 +1,7 @@
 package sortAlgorithms
 
+import randomAlgorithms.exchange
+
 
 /**
  * Time Complexity: O(n²)
@@ -23,14 +25,6 @@ fun minIdx(a:IntArray, l:Int, r:Int):Int{
     }
     return minIdx
 }
-
-
-fun exchange(a:IntArray, idx1:Int, idx2:Int){
-    val temp = a[idx1]
-    a[idx1] = a[idx2]
-    a[idx2] = temp
-}
-
 
 
 fun main() {

@@ -1,5 +1,7 @@
 package sortAlgorithms
 
+import randomAlgorithms.exchange
+
 
 /**
  * Time Complexity: O(n²)
