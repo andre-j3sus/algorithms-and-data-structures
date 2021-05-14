@@ -1,6 +1,6 @@
 package linkedList
 
-import AED_Lists.AEDMutableList
+import aedInterfaces.AEDMutableList
 
 // Simple Linked List, non circular and without sentinel
 

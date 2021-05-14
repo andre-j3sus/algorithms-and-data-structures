@@ -1,9 +1,10 @@
-package interfaces
+package dataTypes
 
 import randomAlgorithms.exchange
 import sortAlgorithms.left
 import sortAlgorithms.parent
 import sortAlgorithms.right
+
 
 data class User(val name: String, val userId: Int, var priority: Int)
 

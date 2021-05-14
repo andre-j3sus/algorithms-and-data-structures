@@ -1,4 +1,4 @@
-package AED_Lists
+package aedInterfaces
 
 interface AEDIntMutableList: AEDIntList{
     fun add(element: Int): Boolean
