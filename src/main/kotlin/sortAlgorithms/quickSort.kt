@@ -37,6 +37,8 @@ fun quickSort(a: IntArray, left:Int, right:Int){
 
 fun main() {
     val a = intArrayOf(-2, -9, 4, -3, 0, 19, 14, -20, 5, 2)
-    quickSort(a, 0, a.lastIndex)
+    partition(a, 0, a.lastIndex)
     println(a.asList())
+    /*quickSort(a, 0, a.lastIndex)
+    println(a.asList())*/
 }

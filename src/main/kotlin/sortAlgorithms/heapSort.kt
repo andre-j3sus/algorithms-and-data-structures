@@ -14,10 +14,9 @@ fun heapSort(heap: IntArray){
     }
 }
 
-fun <T> heapSort(heap: Array<T>, cmp: Comparator<T>){
-    val n = heap.size
+fun <T> heapSort(heap: Array<T>, size:Int = heap.size, cmp: Comparator<T>){
     buildMaxHeap(heap, cmp)
-    for (i in n-1 downTo 1){
+    for (i in size-1 downTo 1){
         exchange(heap, 0, i)
         maxHeapify(heap, 0, i, cmp)
     }

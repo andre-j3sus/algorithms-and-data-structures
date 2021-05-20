@@ -7,6 +7,10 @@ interface Stack<E>{
     fun pop(): E?
 }
 
+
+/**
+ * Implemented with Simple Linked List -> remove and add to the head
+ */
 class StackList<E>: Stack<E>{
     private data class Node<E>(var item:E?, var next:Node<E>?)
     private var head: Node<E>? = null
@@ -16,7 +20,8 @@ class StackList<E>: Stack<E>{
     }
 
     override fun push(elem: E): Boolean {
-        head = Node(elem, head!!.next)
+        val new = Node(elem, head)
+        head = new
         return true
     }
 
@@ -26,9 +31,22 @@ class StackList<E>: Stack<E>{
 
     override fun pop(): E? {
         if (empty()) return null
-        val temp = head!!.item
+        val toRemove = head!!.item
         head = head!!.next
-        return temp
+        return toRemove
     }
+}
 
+fun main() {
+    val stack = StackList<Int>()
+    stack.push(2)
+    stack.push(3)
+    stack.push(4)
+    stack.push(5)
+
+    println(stack.pop())
+    println(stack.pop())
+    println(stack.pop())
+    println(stack.pop())
+    println(stack.pop())
 }

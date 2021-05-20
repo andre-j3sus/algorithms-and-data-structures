@@ -6,7 +6,7 @@ class HashSet<E>(override var size: Int) : MutableSet<E>{
     private var table: Array<Node<E>?>? = null
     private var dimTable = 0
     constructor() : this(0){
-        table = arrayOfNulls<Node<E>?>(10) // as Array<HashSet.Node<E>?>
+        table = arrayOfNulls<Node<E>?>(10)
         dimTable = 10
     }
 
@@ -72,7 +72,8 @@ class HashSet<E>(override var size: Int) : MutableSet<E>{
     }
 
     override fun clear() {
-        TODO("Not yet implemented")
+        table = arrayOfNulls<Node<E>?>(10)
+        dimTable = 10
     }
 
     override fun iterator(): MutableIterator<E> {
@@ -80,7 +81,12 @@ class HashSet<E>(override var size: Int) : MutableSet<E>{
     }
 
     override fun remove(element: E): Boolean {
-        TODO("Not yet implemented")
+        val pos = index(element)
+        val node = search(element, pos) ?: return false
+
+        if (node.previous != null) node.previous!!.next = node.next else table!![pos] = node.next
+        if (node.next != null) node.next!!.previous = node.previous
+        return true
     }
 
     override fun removeAll(elements: Collection<E>): Boolean {
