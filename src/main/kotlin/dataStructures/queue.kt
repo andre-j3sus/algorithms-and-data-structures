@@ -1,4 +1,4 @@
-package dataTypes
+package dataStructures
 
 interface Queue<E>{
     fun empty(): Boolean

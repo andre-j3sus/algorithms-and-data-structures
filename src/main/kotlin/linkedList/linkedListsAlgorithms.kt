@@ -1,7 +1,9 @@
 package linkedList
 
 
+import sortAlgorithms.buildMaxHeap
 import sortAlgorithms.heapSort
+import sortAlgorithms.maxHeapify
 import java.util.function.Predicate
 
 
@@ -139,7 +141,7 @@ fun division(list: Node<Int>, elem: Int){
     }
 }
 
-// TODO("Falar com o Nyck sobre a definição do slow")
+
 fun <E> hasCycle(list: Node<E>): Boolean{
     var slow : Node<E>? = list
     var fast : Node<E>? = list
@@ -186,10 +188,7 @@ fun main() {
     head.addNode(9)
 
 
-
-
-    modularRemove(head, 2)
-    println("pl")
-    /*val a = arrayOf(-2, -9, 4, -3, 0, 19, 14, -20, 5, 2)
-    val b = smallestKElements(a, {a, b -> a - b}, a.size, 3)*/
+    val a = arrayOf(-2, -9, 4, -3, 0, 19, 14, -20, 5, 2)
+    buildMaxHeap(a) {b, c -> b - c}
+    val b = smallestKElements(a, {b, c -> b - c}, a.size, 5)
 }

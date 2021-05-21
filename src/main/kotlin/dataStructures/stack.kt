@@ -1,4 +1,4 @@
-package dataTypes
+package dataStructures
 
 interface Stack<E>{
     fun empty(): Boolean

@@ -1,4 +1,4 @@
-package dataTypes
+package dataStructures
 
 class HashSet<E>(override var size: Int) : MutableSet<E>{
     data class Node <E>(val item: E, var next: Node<E>? = null, var previous: Node<E>? = null)

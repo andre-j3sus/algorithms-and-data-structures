@@ -1,4 +1,4 @@
-package dataTypes
+package dataStructures
 
 import randomAlgorithms.exchange
 import sortAlgorithms.left
