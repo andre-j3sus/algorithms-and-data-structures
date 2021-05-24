@@ -57,11 +57,21 @@ class HashSet<E>(override var size: Int) : MutableSet<E>{
 
     private fun resize(){
         dimTable *= 2
-        table = table!!.copyOf(size)
-        for (i in 0..dimTable){
-            val elem = table!![i]
-            if (elem != null) table!![index(elem.item)] = elem
+        var newTable = Array<Node<E>?>(10) { null }
+        for (i in table!!.indices) {
+            var current = table!![i]
+            while (current != null){
+                table!![i] = table!![i]!!.next
+                val newPos = index(current.item)
+                current.next = newTable[newPos]
+                if (newTable[newPos] != null){
+                    newTable[newPos]!!.previous = current
+                }
+                newTable[newPos] = current
+                current = table!![i]
+            }
         }
+        table = newTable
     }
 
     override fun addAll(elements: Collection<E>): Boolean {
@@ -76,7 +86,7 @@ class HashSet<E>(override var size: Int) : MutableSet<E>{
         dimTable = 10
     }
 
-    override fun iterator(): MutableIterator<E> {
+    override operator fun iterator(): MutableIterator<E> {
         TODO("Not yet implemented")
     }
 

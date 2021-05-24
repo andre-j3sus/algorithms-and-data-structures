@@ -27,23 +27,6 @@ fun isPalindrome(list: Node<Char>): Boolean{
 }
 
 
-fun <E> smallestKElements(maxHeap: Array<E>, cmp: Comparator<E>, n:Int, k:Int): Node<E> {
-    heapSort(maxHeap, n, cmp)
-
-    val head = Node<E>(null)
-    head.next = head
-    head.prev = head
-    for (i in 0 until k){
-        val new = Node(maxHeap[i], head, head.prev)
-        head.prev!!.next = new
-        head.prev = new
-    }
-    head.next!!.prev = null
-    head.prev!!.next = null
-    return head.next!!
-}
-
-
 fun countPairs(list1: Node<Int>, list2: Node<Int>, x:Int): Int{
     var i = list1.next
     var j = list2.prev
@@ -88,7 +71,7 @@ fun <E> filterByInterval(list: Node<E>, init: E, end: E, cmp: Comparator<E>) : N
 }
 
 
-fun <E> sastifyPredicateFirst(list: Node<E>, pred: Predicate<E>): Node<E>{
+fun <E> satisfyPredicateFirst(list: Node<E>, pred: Predicate<E>): Node<E>{
     var current : Node<E>? = list
     var newList  = list
     while (current != null){

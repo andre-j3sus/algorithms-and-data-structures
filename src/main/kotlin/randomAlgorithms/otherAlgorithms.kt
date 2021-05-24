@@ -151,7 +151,7 @@ fun minSubArrayWithSum(v: IntArray, l: Int, r: Int, s: Int): Pair{
 }
 
 
-fun ksmallest(v: IntArray, k:Int): Int{
+fun kSmallest(v: IntArray, k:Int): Int{
     if (v.isEmpty() || k > v.size) return -1
     var size = v.size
     buildMinHeap(v)
