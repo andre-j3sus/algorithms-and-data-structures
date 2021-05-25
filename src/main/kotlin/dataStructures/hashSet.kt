@@ -57,7 +57,7 @@ class HashSet<E>(override var size: Int) : MutableSet<E>{
 
     private fun resize(){
         dimTable *= 2
-        var newTable = Array<Node<E>?>(10) { null }
+        val newTable = Array<Node<E>?>(10) { null }
         for (i in table!!.indices) {
             var current = table!![i]
             while (current != null){

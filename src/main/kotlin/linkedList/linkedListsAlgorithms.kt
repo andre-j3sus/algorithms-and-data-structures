@@ -173,5 +173,4 @@ fun main() {
 
     val a = arrayOf(-2, -9, 4, -3, 0, 19, 14, -20, 5, 2)
     buildMaxHeap(a) {b, c -> b - c}
-    val b = smallestKElements(a, {b, c -> b - c}, a.size, 5)
 }
