@@ -1,10 +1,10 @@
 package linkedList
 
-import aedInterfaces.AEDMutableList
+
 
 // Simple Linked List, non circular and without sentinel
 
-class LinkedListV1<E>: AEDMutableList<E>{
+/*class LinkedListV1<E>: AEDMutableList<E>{
     private data class Node<E>(var item:E, var next:Node<E>?)
     private var head: Node<E>? = null
 
@@ -101,4 +101,4 @@ class LinkedListV1<E>: AEDMutableList<E>{
         size--
         return element
     }
-}
+}*/

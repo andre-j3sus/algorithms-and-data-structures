@@ -2,6 +2,7 @@ package trees
 
 import java.util.*
 import kotlin.Comparator
+import kotlin.math.abs
 import kotlin.math.max
 
 data class Node<E>(val item: E, var left: Node<E>? = null, var right: Node<E>? = null)
@@ -140,8 +141,36 @@ fun <E> isCompleteAux(root: Node<E>?): Int{
 }
 
 
+fun <E> equalTrees(root1: Node<E>?, root2: Node<E>?): Boolean{
+    if (root1 != root2) return false
+    else if (root1 == null) return true
+
+    return equalTrees(root1.left, root2!!.left) && equalTrees(root1.right, root2.right)
+}
+
+
+fun <E> isBalanced(root: Node<E>?): Boolean{
+    if (root == null) return true
+
+    if (isBalanced(root.left) && isBalanced(root.right)){
+        return abs(height(root.left) - height(root.right)) <= 1
+    }
+    return false
+}
+
+
+fun <E> removeGreaterThan(root: Node<E>?, x: E, cmp: Comparator<E>): Node<E>?{
+    if (root == null) return root
+
+    if (cmp.compare(x, root.item) >= 0) root.right = removeGreaterThan(root.right, x, cmp)
+    else return removeGreaterThan(root.left, x, cmp)
+
+    return root
+}
+
+
 fun main() {
-    val newTree = Node(10)
+    /*val newTree = Node(10)
     insert(newTree, 5) { a, b -> a - b }
     insert(newTree, 13) { a, b -> a - b }
     insert(newTree, 6) { a, b -> a - b }
@@ -157,5 +186,33 @@ fun main() {
     println("---------------")
 
     println("Minimum = ${minimum(newTree)}")
-    println("Maximum = ${maximum(newTree)}")
+    println("Maximum = ${maximum(newTree)}")*/
+    var root1 :Node<Int>? = Node(7)
+    insert(root1, 5)  { a, b -> a - b }
+    insert(root1, 13) { a, b -> a - b }
+    insert(root1, 6)  { a, b -> a - b }
+    insert(root1, 14) { a, b -> a - b }
+    insert(root1, 2)  { a, b -> a - b }
+    insert(root1, 3)  { a, b -> a - b }
+    insert(root1, 11) { a, b -> a - b }
+    insert(root1, 11) { a, b -> a - b }
+    insert(root1, 0)  { a, b -> a - b }
+    insert(root1, 0)  { a, b -> a - b }
+    insert(root1, 7)  { a, b -> a - b }
+
+
+    val root2 = Node(7)
+    insert(root2, 5)  { a, b -> a - b }
+    insert(root2, 13) { a, b -> a - b }
+    insert(root2, 6)  { a, b -> a - b }
+    insert(root2, 14) { a, b -> a - b }
+    insert(root2, 2)  { a, b -> a - b }
+    insert(root2, 3)  { a, b -> a - b }
+    insert(root2, 11) { a, b -> a - b }
+    insert(root2, 0)  { a, b -> a - b }
+
+    //println(equalTrees(root1, root2))
+    println(isBalanced(root1))
+    root1 = removeGreaterThan(root1, 6) { a, b -> a - b }
+    println("eheh")
 }

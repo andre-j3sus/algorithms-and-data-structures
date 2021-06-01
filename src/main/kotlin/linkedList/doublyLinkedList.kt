@@ -1,10 +1,9 @@
 package linkedList
 
-import aedInterfaces.AEDMutableList
 
 // Double Linked List,  circular and with sentinel
 
-class LinkedListV2<E>() : AEDMutableList<E> {
+/*class LinkedListV2<E>() : AEDMutableList<E> {
     private data class Node<E>(var item:E?, var next:Node<E>?, var previous:Node<E>?)
     private var head: Node<E>? = null
     override var size: Int = 0
@@ -94,5 +93,5 @@ class LinkedListV2<E>() : AEDMutableList<E> {
 
         return toRemove
     }
-}
+}*/
 
