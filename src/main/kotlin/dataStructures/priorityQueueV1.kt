@@ -8,7 +8,7 @@ import sortAlgorithms.right
 
 data class User(val name: String, val userId: Int, var priority: Int)
 
-data class PriorityQueue(
+data class PriorityQueueV1(
     val heap: Array<User?>, // min-Heap
     val positions: IntArray,
     var size: Int,
@@ -20,7 +20,7 @@ data class PriorityQueue(
  * Add and position a new element
  * Time Complexity: O(log₂n)
  */
-fun PriorityQueue.offer(elem: User){
+fun PriorityQueueV1.offer(elem: User){
     heap[size] = elem
     positions[elem.userId] = size
     decreaseKey(size)
@@ -31,7 +31,7 @@ fun PriorityQueue.offer(elem: User){
 /**
  * Time Complexity: O(log₂n) -> n: number of elements
  */
-private fun PriorityQueue.decreaseKey(i: Int){
+private fun PriorityQueueV1.decreaseKey(i: Int){
     var i = i
     while (i > 0 && compare(heap[i]!!, heap[parent(i)]!!) < 0){
         exchange(heap, i, parent(i))
@@ -44,13 +44,13 @@ private fun PriorityQueue.decreaseKey(i: Int){
 /**
  * Return the element with more priority, or null if the heap is empty
  */
-fun PriorityQueue.peek(): User? = heap[0]
+fun PriorityQueueV1.peek(): User? = heap[0]
 
 
 /**
  * Returns and removes the element with more priority
  */
-fun PriorityQueue.poll(): User?{
+fun PriorityQueueV1.poll(): User?{
     val elem = peek()
     if (elem != null){
         heap[0] = heap[--size]
@@ -64,7 +64,7 @@ fun PriorityQueue.poll(): User?{
 /**
  * Time Complexity: O(log₂n)
  */
-private fun PriorityQueue.minHeapify(i: Int){
+private fun PriorityQueueV1.minHeapify(i: Int){
     val left = left(i)
     val right = right(i)
     var smallest = i
@@ -83,7 +83,7 @@ private fun PriorityQueue.minHeapify(i: Int){
 /**
  * Updates the status of a User
  */
-fun PriorityQueue.update(newStatus: User){
+fun PriorityQueueV1.update(newStatus: User){
     val oldStatus = heap[positions[newStatus.userId]]!!
     heap[positions[newStatus.userId]] = newStatus
 
