@@ -186,9 +186,55 @@ fun lowestCommonAncestor(root: Node<Int>?, n1: Int, n2: Int): Node<Int>?{
 }
 
 
+fun withSum(root: Node<Int>?, sum: Int): Boolean{
+    if (root == null) return sum == 0
+    val newSum = sum - root.value
+    return withSum(root.left, newSum) || withSum(root.right, newSum)
+}
+
+
+fun getDiameter(root:Node<Int>?): Int{
+    if (root == null) return 0
+
+    val lHeight = height(root.left) + 1
+    val rHeight = height(root.right) + 1
+
+    val lDiameter = getDiameter(root.left)
+    val rDiameter = getDiameter(root.right)
+
+    return max(lHeight + rHeight + 1, max(lDiameter, rDiameter))
+}
+
+
+fun existClosedNodes(root: Node<Int>): Boolean{
+    return existClosedNodesAux(root, 1, Int.MAX_VALUE)
+}
+
+fun existClosedNodesAux(root: Node<Int>?, min: Int, max: Int): Boolean{
+    if (root == null) return false
+    if (root.left == null && root.right == null && root.value == min && root.value == max) return true
+    return existClosedNodesAux(root.left, min, root.value - 1) || existClosedNodesAux(root.right, root.value + 1, max)
+}
+
+
+fun isEquals(root: Node<Int>?, ar: Array<Int>): Boolean{
+    return isEqualsAux(root, ar, 0) == ar.size
+}
+
+fun isEqualsAux(root: Node<Int>?, ar: Array<Int>, idx: Int): Int{
+    //if (idx >= ar.size && root != null) return -1
+    if (root == null) return idx
+    var newIdx = isEqualsAux(root.left, ar, idx)
+    if (root.value == ar[newIdx]) newIdx++ //else return -1
+
+    return isEqualsAux(root.right, ar, newIdx)
+}
+
+
+
 fun main() {
-    var root1 :Node<Int>? = Node(7)
-    insert(root1, 5)  { a, b -> a - b }
+    val root1 : Node<Int> = Node(40)
+    /*insert(root1, 5)  { a, b -> a - b }
     insert(root1, 13) { a, b -> a - b }
     insert(root1, 6)  { a, b -> a - b }
     insert(root1, 14) { a, b -> a - b }
@@ -196,9 +242,17 @@ fun main() {
     insert(root1, 3)  { a, b -> a - b }
     insert(root1, 11) { a, b -> a - b }
     insert(root1, 0)  { a, b -> a - b }
-    insert(root1, 7)  { a, b -> a - b }
+    insert(root1, 7)  { a, b -> a - b }*/
+
+    insert(root1, 20) { a, b -> a - b }
+    insert(root1, 10)  { a, b -> a - b }
+    insert(root1, 30) { a, b -> a - b }
+    insert(root1, 25)  { a, b -> a - b }
+    insert(root1, 60)  { a, b -> a - b }
+    insert(root1, 50) { a, b -> a - b }
+    insert(root1, 70)  { a, b -> a - b }
 
 
-    println(lowestCommonAncestor(root1, 11, 14))
+    println(isEquals(root1, arrayOf(10, 20, 25, 30, 40, 50, 60, 70)))
 
 }
