@@ -2,47 +2,52 @@ package sortAlgorithms
 
 
 /**
- * Time Complexity: O(n)
+ * Counting Sort of an IntArray (with positive and negatice elements).
  *
- * Implemented by me and my colleague Nyckollas
+ * Implemented by me and my colleague Nyckollas Brandão
+ *
+ * Time Complexity: O(n)
+ * @param a array
+ * @param left left index
+ * @param right right index
+ * @return sorted array
  */
-fun countingSort(a:IntArray, left:Int, right:Int): IntArray {
+fun countingSort(a: IntArray, left: Int, right: Int): IntArray {
     val sortedA = IntArray(a.size)
     var max = a[0]
     var min = a[0]
 
     // Searching min and max elements
-    for (i in left..right){
+    for (i in left..right) {
         if (a[i] > max) max = a[i]
         if (a[i] < min) min = a[i]
     }
 
     // Counting for positive and negative elements
-    val counts = IntArray(max+1)
+    val counts = IntArray(max + 1)
     val negativeCounts = IntArray(-min + 1)
-    for (i in a.indices){
+    for (i in a.indices) {
         val elem = a[i]
         if (elem >= 0) counts[elem]++
         else negativeCounts[-elem]++
     }
 
-    for (j in negativeCounts.lastIndex - 1 downTo 0){
-        negativeCounts[j] += negativeCounts[j+1]
+    for (j in negativeCounts.lastIndex - 1 downTo 0) {
+        negativeCounts[j] += negativeCounts[j + 1]
     }
 
     counts[0] += negativeCounts[0]
-    for (j in 1..counts.lastIndex){
-        counts[j] += counts[j-1]
+    for (j in 1..counts.lastIndex) {
+        counts[j] += counts[j - 1]
     }
 
     // Building sorted array
-    for (j in right downTo left ){
+    for (j in right downTo left) {
         val elem = a[j]
         if (elem >= 0) {
             sortedA[counts[elem] - 1] = elem
             counts[elem]--
-        }
-        else {
+        } else {
             sortedA[negativeCounts[-elem] - 1] = elem
             negativeCounts[-elem]--
         }
@@ -51,8 +56,11 @@ fun countingSort(a:IntArray, left:Int, right:Int): IntArray {
 }
 
 
+/**
+ * Test function of counting sort algorithm.
+ */
 fun main() {
     val a = intArrayOf(-20, -2, -9, 4, -3, 0, 19, 14, -20, 5, 2)
     val b = countingSort(a, 0, a.lastIndex)
-    println(b.asList())
+    println(b.asList()) // [-20, -20, -9, -3, -2, 0, 2, 4, 5, 14, 19]
 }

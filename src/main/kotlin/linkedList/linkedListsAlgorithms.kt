@@ -1,9 +1,5 @@
 package linkedList
 
-
-import sortAlgorithms.buildMaxHeap
-import sortAlgorithms.heapSort
-import sortAlgorithms.maxHeapify
 import java.util.function.Predicate
 
 
@@ -170,7 +166,4 @@ fun main() {
     head.addNode(10)
     head.addNode(9)
 
-
-    val a = arrayOf(-2, -9, 4, -3, 0, 19, 14, -20, 5, 2)
-    buildMaxHeap(a) {b, c -> b - c}
 }

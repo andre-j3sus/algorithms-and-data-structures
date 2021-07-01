@@ -6,7 +6,7 @@ import kotlin.math.abs
 import kotlin.math.max
 
 
-data class Node<E>(val value: E, var left: Node<E>? = null, var right: Node<E>? = null)
+data class Node<E>(var value: E, var left: Node<E>? = null, var right: Node<E>? = null)
 
 
 fun <E> containsIterative(root: Node<E>?, cmp: Comparator<E>, elem: E): Boolean {
@@ -228,6 +228,19 @@ fun isEqualsAux(root: Node<Int>?, ar: Array<Int>, idx: Int): Int{
     if (root.value == ar[newIdx]) newIdx++ //else return -1
 
     return isEqualsAux(root.right, ar, newIdx)
+}
+
+fun convertBST(root: Node<Int>?): Node<Int>? {
+    convertBSTAux(root, 0)
+    return root
+}
+
+fun convertBSTAux(root: Node<Int>?, acc: Int): Int {
+  if (root == null) return acc
+  val newAcc = convertBSTAux(root.right, acc)
+  root.value = root.value + newAcc
+  convertBSTAux(root.left, root.value)
+  return root.value
 }
 
 

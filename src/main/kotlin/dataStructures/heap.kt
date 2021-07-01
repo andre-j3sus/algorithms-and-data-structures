@@ -22,11 +22,60 @@ fun minHeapify(a: IntArray, root: Int, size: Int){
 }
 
 
+/**
+ * Time Complexity: O(log₂n)
+ */
+fun maxHeapify(a: IntArray, rootIdx: Int, n: Int){
+    val l = left(rootIdx)
+    val r = right(rootIdx)
+    var largest = rootIdx
+
+    if(l < n && a[l] > a[largest]) largest = l
+    if(r < n && a[r] > a[largest]) largest = r
+
+    if (largest == rootIdx) return
+    exchange(a, rootIdx, largest)
+    maxHeapify(a, largest, n)
+}
+
+
+fun <T> maxHeapify(a: Array<T>, rootIdx: Int, n: Int, cmp: Comparator<T>){
+    val l = left(rootIdx)
+    val r = right(rootIdx)
+    var largest = rootIdx
+
+    if(l < n && cmp.compare(a[l],a[largest]) > 0) largest = l
+    if(r < n && cmp.compare(a[r],a[largest]) > 0) largest = r
+
+    if (largest == rootIdx) return
+    exchange(a, rootIdx, largest)
+    maxHeapify(a, largest, n, cmp)
+}
+
+
 fun buildMinHeap(a: IntArray){
     var parent = parent(a.lastIndex)
     while (parent >= 0){
         minHeapify(a, parent, a.size)
         parent--
     }
-
 }
+
+/**
+ * Time Complexity: O(n)
+ */
+fun buildMaxHeap(a: IntArray){
+    var parent = parent(a.lastIndex)
+    while (parent >= 0){
+        maxHeapify(a, parent, a.size)
+        parent--
+    }
+}
+
+
+fun <T> buildMaxHeap(a: Array<T>, cmp: Comparator<T>){
+    for (i in a.size / 2 - 1 downTo 0){
+        maxHeapify(a, i, a.size, cmp)
+    }
+}
+
