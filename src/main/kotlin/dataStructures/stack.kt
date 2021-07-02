@@ -1,6 +1,15 @@
 package dataStructures
 
-interface Stack<E>{
+
+/**
+ * Stack is an abstract data type that serves as a collection of elements,
+ * with two main principal operations:
+ * - Push - which adds an element to the collection;
+ * - Pop - which removes the most recently added element that was not yet removed.
+ *
+ * Is implemented with a LIFO (Last In, First Out) architecture.
+ */
+interface Stack<E> {
     fun empty(): Boolean
     fun push(elem: E): Boolean
     fun peek(): E?
@@ -9,10 +18,11 @@ interface Stack<E>{
 
 
 /**
- * Implemented with Simple Linked List -> remove and add to the head
+ * Stack implemented with Simple Linked List -> remove and add to the head
  */
-class StackList<E>: Stack<E>{
-    private data class Node<E>(var item:E?, var next:Node<E>?)
+class StackList<E> : Stack<E> {
+    private data class Node<E>(var item: E?, var next: Node<E>?)
+
     private var head: Node<E>? = null
 
     override fun empty(): Boolean {
@@ -37,6 +47,10 @@ class StackList<E>: Stack<E>{
     }
 }
 
+
+/**
+ * Test function of the StackList class.
+ */
 fun main() {
     val stack = StackList<Int>()
     stack.push(2)

@@ -1,9 +1,12 @@
 package dataStructures
 
-interface KeyExtractor<E> {
-    fun getKey(e: E): Int
-}
 
+/**
+ * A priority queue is an abstract data type similar to a regular queue or stack data structure
+ * in which each element additionally has a "priority" associated with it.
+ *
+ * In a priority queue, an element with high priority is served before an element with low priority.
+ */
 private interface PriorityQueue<E, P> {
     fun add(elem: E, prio: P)
     fun peek(): E?
@@ -13,7 +16,20 @@ private interface PriorityQueue<E, P> {
     fun empty(): Boolean
 }
 
-class PriorityQueueV2<E, P>(maxCapacity: Int, private val cmp: Comparator<P>, private val keyExtractor: KeyExtractor<E>) :
+
+interface KeyExtractor<E> {
+    fun getKey(e: E): Int
+}
+
+
+/**
+ * Priority Queue class implemented.
+ */
+class PriorityQueueV2<E, P>(
+    maxCapacity: Int,
+    private val cmp: Comparator<P>,
+    private val keyExtractor: KeyExtractor<E>
+) :
     PriorityQueue<E, P> {
 
     data class User<E, P>(val elem: E, val key: Int, var prio: P)

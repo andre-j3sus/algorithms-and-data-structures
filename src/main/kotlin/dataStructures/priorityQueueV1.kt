@@ -3,13 +3,25 @@ package dataStructures
 import randomAlgorithms.exchange
 
 
+/**
+ * User of the Priority Queue.
+ */
 data class User(val name: String, val userId: Int, var priority: Int)
 
+
+/**
+ * A priority queue is an abstract data type similar to a regular queue or stack data structure
+ * in which each element additionally has a "priority" associated with it.
+ *
+ * In a priority queue, an element with high priority is served before an element with low priority.
+ *
+ * Priority Queue implemented with data class.
+ */
 data class PriorityQueueV1(
     val heap: Array<User?>, // min-Heap
     val positions: IntArray,
     var size: Int,
-    val compare: (a: User, b:User) -> Int
+    val compare: (a: User, b: User) -> Int
 )
 
 
@@ -17,7 +29,7 @@ data class PriorityQueueV1(
  * Add and position a new element
  * Time Complexity: O(log₂n)
  */
-fun PriorityQueueV1.offer(elem: User){
+fun PriorityQueueV1.offer(elem: User) {
     heap[size] = elem
     positions[elem.userId] = size
     decreaseKey(size)
@@ -28,9 +40,9 @@ fun PriorityQueueV1.offer(elem: User){
 /**
  * Time Complexity: O(log₂n) -> n: number of elements
  */
-private fun PriorityQueueV1.decreaseKey(i: Int){
+private fun PriorityQueueV1.decreaseKey(i: Int) {
     var i = i
-    while (i > 0 && compare(heap[i]!!, heap[parent(i)]!!) < 0){
+    while (i > 0 && compare(heap[i]!!, heap[parent(i)]!!) < 0) {
         exchange(heap, i, parent(i))
         exchange(positions, heap[i]!!.userId, heap[parent(i)]!!.userId)
         i = parent(i)
@@ -41,15 +53,16 @@ private fun PriorityQueueV1.decreaseKey(i: Int){
 /**
  * Return the element with more priority, or null if the heap is empty
  */
-fun PriorityQueueV1.peek(): User? = heap[0]
+fun PriorityQueueV1.peek(): User? =
+    heap[0]
 
 
 /**
  * Returns and removes the element with more priority
  */
-fun PriorityQueueV1.poll(): User?{
+fun PriorityQueueV1.poll(): User? {
     val elem = peek()
-    if (elem != null){
+    if (elem != null) {
         heap[0] = heap[--size]
         positions[heap[0]!!.userId] = 0
         heap[size] = null
@@ -61,7 +74,7 @@ fun PriorityQueueV1.poll(): User?{
 /**
  * Time Complexity: O(log₂n)
  */
-private fun PriorityQueueV1.minHeapify(i: Int){
+private fun PriorityQueueV1.minHeapify(i: Int) {
     val left = left(i)
     val right = right(i)
     var smallest = i
@@ -80,13 +93,12 @@ private fun PriorityQueueV1.minHeapify(i: Int){
 /**
  * Updates the status of a User
  */
-fun PriorityQueueV1.update(newStatus: User){
+fun PriorityQueueV1.update(newStatus: User) {
     val oldStatus = heap[positions[newStatus.userId]]!!
     heap[positions[newStatus.userId]] = newStatus
 
-    if (compare(oldStatus, newStatus) > 0){
+    if (compare(oldStatus, newStatus) > 0) {
         decreaseKey(positions[newStatus.userId])
-    }
-    else
+    } else
         minHeapify(positions[newStatus.userId])
 }

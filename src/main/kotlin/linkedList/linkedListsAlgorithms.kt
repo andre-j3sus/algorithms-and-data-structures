@@ -3,18 +3,28 @@ package linkedList
 import java.util.function.Predicate
 
 
+/**
+ * This file contains some algorithms that I implemented to study
+ * for a college exam of "Algorithms and Data Structures" class.
+ *
+ * They all use linked lists.
+ */
+
+
 data class Node<E>(var value: E?, var next: Node<E>? = null, var prev: Node<E>? = null)
 
-fun <E> Node<E>.addNode(elem: E){
+
+fun <E> Node<E>.addNode(elem: E) {
     val new = Node(elem, this, this.prev)
     this.prev!!.next = new
     this.prev = new
 }
 
-fun isPalindrome(list: Node<Char>): Boolean{
+
+fun isPalindrome(list: Node<Char>): Boolean {
     var left = list.next
     var right = list.prev
-    while(left!!.value == right!!.value){
+    while (left!!.value == right!!.value) {
         if (left == right || left.next == right) return true
         left = left.next
         right = right.prev
@@ -23,12 +33,12 @@ fun isPalindrome(list: Node<Char>): Boolean{
 }
 
 
-fun countPairs(list1: Node<Int>, list2: Node<Int>, x:Int): Int{
+fun countPairs(list1: Node<Int>, list2: Node<Int>, x: Int): Int {
     var i = list1.next
     var j = list2.prev
     var count = 0
 
-    while (i != list1 && j != list2){
+    while (i != list1 && j != list2) {
         val sum = list1.value!! + list2.value!!
         when {
             sum == x -> {
@@ -37,20 +47,20 @@ fun countPairs(list1: Node<Int>, list2: Node<Int>, x:Int): Int{
                 j = j!!.prev
             }
             sum > x -> j = j!!.prev
-            else    -> i = i!!.next
+            else -> i = i!!.next
         }
     }
     return count
 }
 
 
-fun <E> filterByInterval(list: Node<E>, init: E, end: E, cmp: Comparator<E>) : Node<E>?{
-    var current : Node<E>? = list
+fun <E> filterByInterval(list: Node<E>, init: E, end: E, cmp: Comparator<E>): Node<E>? {
+    var current: Node<E>? = list
     var newHead: Node<E>? = Node(null)
     while (current != null && cmp.compare(current.value, init) < 0) {
         current = current.next
     }
-    if (current != null){
+    if (current != null) {
         newHead = current
         newHead.prev = null
     }
@@ -58,7 +68,7 @@ fun <E> filterByInterval(list: Node<E>, init: E, end: E, cmp: Comparator<E>) : N
     while (current != null && cmp.compare(current.value, end) <= 0) {
         current = current.next
     }
-    if (current != null){
+    if (current != null) {
         if (current.prev != null) current.prev!!.next = null
         else newHead = null
     }
@@ -67,13 +77,13 @@ fun <E> filterByInterval(list: Node<E>, init: E, end: E, cmp: Comparator<E>) : N
 }
 
 
-fun <E> satisfyPredicateFirst(list: Node<E>, pred: Predicate<E>): Node<E>{
-    var current : Node<E>? = list
-    var newList  = list
-    while (current != null){
+fun <E> satisfyPredicateFirst(list: Node<E>, pred: Predicate<E>): Node<E> {
+    var current: Node<E>? = list
+    var newList = list
+    while (current != null) {
         val temp = current.next
 
-        if (pred.test(current.value!!) && current != newList){
+        if (pred.test(current.value!!) && current != newList) {
             current.prev!!.next = current.next
             if (current.next != null) current.next!!.prev = current.prev
 
@@ -90,22 +100,22 @@ fun <E> satisfyPredicateFirst(list: Node<E>, pred: Predicate<E>): Node<E>{
 }
 
 
-fun division(list: Node<Int>, elem: Int){
+fun division(list: Node<Int>, elem: Int) {
     var left = list.next
     var right = list.prev
 
-    while (true){ // right!!.next != left && left != right
+    while (true) { // right!!.next != left && left != right
 
         while (left != list && left!!.value!! <= elem) {
             left = left.next
-            if (left!!.value == elem){
+            if (left!!.value == elem) {
                 left.prev!!.next = left.next
                 left.next!!.prev = left.prev
             }
         }
-        while (right != list && right!!.value!! >= elem){
+        while (right != list && right!!.value!! >= elem) {
             right = right.prev
-            if (right!!.value == elem){
+            if (right!!.value == elem) {
                 right.prev!!.next = right.next
                 right.next!!.prev = right.prev
             }
@@ -121,11 +131,11 @@ fun division(list: Node<Int>, elem: Int){
 }
 
 
-fun <E> hasCycle(list: Node<E>): Boolean{
-    var slow : Node<E>? = list
-    var fast : Node<E>? = list
+fun <E> hasCycle(list: Node<E>): Boolean {
+    var slow: Node<E>? = list
+    var fast: Node<E>? = list
 
-    while (fast?.next != null){ // fast != null && fast.next != null
+    while (fast?.next != null) { // fast != null && fast.next != null
         slow = slow!!.next
         fast = fast.next!!.next
 
@@ -135,35 +145,15 @@ fun <E> hasCycle(list: Node<E>): Boolean{
 }
 
 
-fun <E> modularRemove(list: Node<E>, k:Int){
+fun <E> modularRemove(list: Node<E>, k: Int) {
     var current = list.next
     var i = 0
-    while (current!! != list){
-        if (i % k == 0){
+    while (current!! != list) {
+        if (i % k == 0) {
             current.prev!!.next = current.next
             current.next!!.prev = current.prev
         }
         current = current.next
         i++
     }
-}
-
-
-
-fun main() {
-    val head = Node<Int>(null)
-    head.next = head
-    head.prev = head
-
-    head.addNode(0)
-    head.addNode(5)
-    head.addNode(7)
-    head.addNode(2)
-    head.addNode(4)
-    head.addNode(3)
-    head.addNode(1)
-    head.addNode(2)
-    head.addNode(10)
-    head.addNode(9)
-
 }

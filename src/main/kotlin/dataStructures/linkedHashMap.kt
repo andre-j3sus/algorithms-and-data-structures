@@ -1,11 +1,19 @@
 package dataStructures
 
-interface MutableMap<K,V> {
-    interface MutableEntry<K, V>{
+
+/**
+ * A modifiable collection that holds pairs of objects (keys and values) and
+ * supports efficiently retrieving the value corresponding to each key.
+ *
+ * Map keys are unique; the map holds only one value for each key.
+ */
+interface MutableMap<K, V> {
+    interface MutableEntry<K, V> {
         val key: K
-        val value:V
+        val value: V
         fun setValue(newValue: V): V
     }
+
     var size: Int
     fun put(key: K, value: V): V?
     fun remove(key: K): V?
@@ -13,13 +21,17 @@ interface MutableMap<K,V> {
     fun iterator(): Iterator<MutableEntry<K, V>>
 }
 
+
+/**
+ * LinkedHashMap implemented with MutableMap interface by me and my colleague Nyckollas Brandão.
+ */
 class LinkedHashMap<K, V>(capacity: Int = 10) : MutableMap<K, V> {
 
-    class HashNode<K, V>(override val key: K, override var value: V) : MutableMap.MutableEntry<K, V>{
+    class HashNode<K, V>(override val key: K, override var value: V) : MutableMap.MutableEntry<K, V> {
 
         /**
          * Change the value of a HashNode
-         * @param newValue 
+         * @param newValue
          * @return the old value
          */
         override fun setValue(newValue: V): V {
@@ -28,30 +40,30 @@ class LinkedHashMap<K, V>(capacity: Int = 10) : MutableMap<K, V> {
             return lastValue
         }
 
-        var next : HashNode<K, V>? = null
-        var previous : HashNode<K, V>? = null
+        var next: HashNode<K, V>? = null
+        var previous: HashNode<K, V>? = null
 
-        var nextOrdered: HashNode<K, V>? = null     
-        var previousOrdered: HashNode<K, V>? = null 
+        var nextOrdered: HashNode<K, V>? = null
+        var previousOrdered: HashNode<K, V>? = null
     }
 
-    private var table: Array<HashNode<K, V>?> = Array(capacity){ null }
+    private var table: Array<HashNode<K, V>?> = Array(capacity) { null }
 
-    private var headOrdered : HashNode<K, V>? = null 
-    private var tailOrdered : HashNode<K, V>? = null 
+    private var headOrdered: HashNode<K, V>? = null
+    private var tailOrdered: HashNode<K, V>? = null
 
-    override var size: Int = 0           
-    private var dimTable: Int = capacity 
+    override var size: Int = 0
+    private var dimTable: Int = capacity
 
-    
+
     override fun put(key: K, value: V): V? {
         if ((size / dimTable.toDouble()) > 0.75) resize()
 
         val index = index(key)
         var elem = table[index]
 
-        while (elem != null){
-            if (elem.key == key){
+        while (elem != null) {
+            if (elem.key == key) {
                 val lastValue = elem.value
                 elem.setValue(value)
 
@@ -82,12 +94,12 @@ class LinkedHashMap<K, V>(capacity: Int = 10) : MutableMap<K, V> {
         return null
     }
 
-    
+
     override fun remove(key: K): V? {
         var elem = table[index(key)]
 
-        while (elem != null){
-            if (elem.key == key){
+        while (elem != null) {
+            if (elem.key == key) {
 
                 // Remove element from bucket
                 if (elem.previous != null) elem.previous!!.next = elem.next
@@ -108,13 +120,12 @@ class LinkedHashMap<K, V>(capacity: Int = 10) : MutableMap<K, V> {
         return null
     }
 
-    
+
     private fun addToOrdered(elem: HashNode<K, V>) {
-        if (headOrdered == null && tailOrdered == null){
+        if (headOrdered == null && tailOrdered == null) {
             headOrdered = elem
             tailOrdered = elem
-        }
-        else{
+        } else {
             elem.previousOrdered = tailOrdered!!
             tailOrdered!!.nextOrdered = elem
             elem.nextOrdered = null
@@ -123,8 +134,8 @@ class LinkedHashMap<K, V>(capacity: Int = 10) : MutableMap<K, V> {
         }
     }
 
-    
-    private fun removeFromOrdered(elem: HashNode<K, V>){
+
+    private fun removeFromOrdered(elem: HashNode<K, V>) {
         when (elem) {
             headOrdered -> headOrdered = elem.nextOrdered
             tailOrdered -> {
@@ -138,11 +149,11 @@ class LinkedHashMap<K, V>(capacity: Int = 10) : MutableMap<K, V> {
         }
     }
 
-    
+
     override operator fun get(key: K): V? {
         var elem = table[index(key)]
 
-        while (elem != null){
+        while (elem != null) {
             if (elem.key == key) return elem.value
 
             elem = elem.next
@@ -151,22 +162,22 @@ class LinkedHashMap<K, V>(capacity: Int = 10) : MutableMap<K, V> {
         return null
     }
 
-    
-    private fun index(key: K) : Int{
+
+    private fun index(key: K): Int {
         val hashCode = key.hashCode()
         return hashCode % dimTable + if (hashCode % dimTable < 0) dimTable else 0
     }
 
-    
-    private fun resize(){
+
+    private fun resize() {
         dimTable *= 2
-        val newTable = Array<HashNode<K, V>?>(dimTable){ null }
+        val newTable = Array<HashNode<K, V>?>(dimTable) { null }
 
         var current: HashNode<K, V>?
 
-        for (i in table.indices){
+        for (i in table.indices) {
             current = table[i]
-            while (current != null){
+            while (current != null) {
                 table[i] = table[i]!!.next
                 val newPosition = index(current.key)
 
@@ -184,9 +195,9 @@ class LinkedHashMap<K, V>(capacity: Int = 10) : MutableMap<K, V> {
         table = newTable
     }
 
-    
+
     override operator fun iterator(): Iterator<MutableMap.MutableEntry<K, V>> {
-        return object : Iterator<MutableMap.MutableEntry<K, V>>{
+        return object : Iterator<MutableMap.MutableEntry<K, V>> {
             var element = headOrdered
             override fun hasNext(): Boolean {
                 return element != null
@@ -202,18 +213,18 @@ class LinkedHashMap<K, V>(capacity: Int = 10) : MutableMap<K, V> {
         }
     }
 
-    
+
     override fun toString(): String {
         var str = ""
 
-        for (elem in this){
+        for (elem in this) {
             str += "'${elem.key}': ${elem.value}, "
         }
         return "{ ${str.dropLast(2)} }"
     }
 
-    
+
     operator fun set(k: K, value: V) =
         put(k, value)
-    
+
 }

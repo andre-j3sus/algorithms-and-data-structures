@@ -1,6 +1,12 @@
 package dataStructures
 
-interface Queue<E>{
+
+/**
+ * A Queue is a linear structure which follows a particular order in which the operations are performed.
+ *
+ * The order is First In, First Out (FIFO).
+ */
+interface Queue<E> {
     fun empty(): Boolean
     fun peek(): E?
     fun offer(elem: E): Boolean
@@ -9,10 +15,10 @@ interface Queue<E>{
 
 
 /**
- * Implemented with Simple Linked List -> remove to the head and add to the tail
+ * Queue implemented with Simple Linked List -> remove to the head and add to the tail
  */
-class ListQueue<E>: Queue<E>{
-    private data class Node<E>(var item:E?, var next:Node<E>?)
+class QueueList<E> : Queue<E> {
+    private data class Node<E>(var item: E?, var next: Node<E>?)
 
     private var tail: Node<E> = Node(null, null)
     private var head: Node<E> = tail
@@ -41,8 +47,12 @@ class ListQueue<E>: Queue<E>{
     }
 }
 
+
+/**
+ * Test function of the QueueList class.
+ */
 fun main() {
-    val queue = ListQueue<String>()
+    val queue = QueueList<String>()
     queue.offer("Jesus")
     queue.offer("Nyck")
     queue.offer("Páscoa")

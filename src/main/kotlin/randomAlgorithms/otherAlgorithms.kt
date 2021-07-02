@@ -5,28 +5,36 @@ import dataStructures.minHeapify
 import kotlin.math.abs
 
 
-fun countIncreasingSubArrays(v: IntArray):Int{
+/**
+ * This file contains some algorithms that I implemented to study
+ * for a college exam of "Algorithms and Data Structures" class.
+ *
+ * They all use arrays and some basic algorithms like partition, sliding window or heap algorithms.
+ */
+
+
+fun countIncreasingSubArrays(v: IntArray): Int {
     var count = 0
     var size = 1
-    for (i in 1 until v.size){
-        if (v[i] > v[i-1]) count += size++
+    for (i in 1 until v.size) {
+        if (v[i] > v[i - 1]) count += size++
         else size = 1
     }
     return count
 }
 
 
-fun max(a: IntArray, l:Int, r:Int): Int{
+fun max(a: IntArray, l: Int, r: Int): Int {
     var l = l
     var r = r
     var max = a[l]
-    while (l <= r){
-        val mid = l + (r-l)/2
+    while (l <= r) {
+        val mid = l + (r - l) / 2
         if (a[mid] > max) max = a[mid]
 
-        if(a[mid] > a[mid + 1]) r = mid - 1
+        if (a[mid] > a[mid + 1]) r = mid - 1
         else if (a[mid] < a[mid + 1]) l = mid + 1
-        else{
+        else {
             var mostL = mid
             var mostR = mid
             while (mostL > l && a[mostL - 1] == a[mid]) mostL--
@@ -41,13 +49,13 @@ fun max(a: IntArray, l:Int, r:Int): Int{
 }
 
 
-fun countDistinct(v: IntArray): Int{
+fun countDistinct(v: IntArray): Int {
     if (v.isEmpty()) return 0
     var count = v.size
     var l = 0
     var r = v.lastIndex
 
-    while (l < r){
+    while (l < r) {
         while (l < r && v[l + 1] == v[l]) l++; count--
         while (r > l && v[r - 1] == v[r]) r--; count--
 
@@ -67,14 +75,14 @@ fun countDistinct(v: IntArray): Int{
 }
 
 
-data class Point(val x: Int, val y:Int)
+data class Point(val x: Int, val y: Int)
 
-fun countEquals(points1: Array<Point>, points2: Array<Point>, cmp: Comparator<Point>): Int{
+fun countEquals(points1: Array<Point>, points2: Array<Point>, cmp: Comparator<Point>): Int {
     var count = 0
     var i = 0
     var j = 0
-    if (!points1.isEmpty() && !points2.isEmpty()){
-        while (i < points1.size && j < points2.size){
+    if (points1.isNotEmpty() && points2.isNotEmpty()) {
+        while (i < points1.size && j < points2.size) {
             val comp = cmp.compare(points1[i], points2[j])
             when {
                 comp == 0 -> {
@@ -91,15 +99,15 @@ fun countEquals(points1: Array<Point>, points2: Array<Point>, cmp: Comparator<Po
 }
 
 
-fun find(points1: Array<Point>, points2: Array<Point>): Array<Point>?{
+fun find(points1: Array<Point>, points2: Array<Point>): Array<Point>? {
     if (points1.isEmpty() || points2.isEmpty()) return null
-    val p = arrayOf<Point>(points1[0], points2[0])
+    val p = arrayOf(points1[0], points2[0])
     var minDif = abs(points1[0].x - points2[0].x)
     var i = 0
     var j = 0
-    while (i < points1.size && j < points2.size){
+    while (i < points1.size && j < points2.size) {
         val dif = abs(points1[i].x - points2[j].x)
-        if (dif < minDif){
+        if (dif < minDif) {
             p[0] = points1[i]
             p[1] = points2[j]
             minDif = dif
@@ -112,9 +120,10 @@ fun find(points1: Array<Point>, points2: Array<Point>): Array<Point>?{
     return p
 }
 
+
 data class Pair(var first: Int, var second: Int)
 
-fun minSubArrayWithSum(v: IntArray, l: Int, r: Int, s: Int): Pair{
+fun minSubArrayWithSum(v: IntArray, l: Int, r: Int, s: Int): Pair {
     var left = l
     var right = l
 
@@ -126,16 +135,16 @@ fun minSubArrayWithSum(v: IntArray, l: Int, r: Int, s: Int): Pair{
 
     if (currentSum >= s) return bestPair
 
-    while (right < r){
+    while (right < r) {
         currentSum += v[++right]
         size++
 
         if (currentSum >= s) {
-            while (currentSum - v[left] >= s){
+            while (currentSum - v[left] >= s) {
                 size--
                 currentSum -= v[left++]
             }
-            if (size < bestSize){
+            if (size < bestSize) {
                 bestPair.first = left
                 bestPair.second = right
                 bestSize = size
@@ -151,11 +160,11 @@ fun minSubArrayWithSum(v: IntArray, l: Int, r: Int, s: Int): Pair{
 }
 
 
-fun kSmallest(v: IntArray, k:Int): Int{
+fun kSmallest(v: IntArray, k: Int): Int {
     if (v.isEmpty() || k > v.size) return -1
     var size = v.size
     buildMinHeap(v)
-    for (i in 0 until k - 1){
+    for (i in 0 until k - 1) {
         exchange(v, 0, --size)
         minHeapify(v, 0, size)
     }
@@ -163,20 +172,11 @@ fun kSmallest(v: IntArray, k:Int): Int{
 }
 
 
-fun undoRotate(v: IntArray, l:Int, r: Int){
+fun undoRotate(v: IntArray, l: Int, r: Int) {
     val oldV = v.copyOf()
     var shift = 0
     while (v[shift + 1] > v[shift++]);
-    for (i in l..r){
+    for (i in l..r) {
         v[i] = oldV[if (i + shift > r) i + shift - v.size else i + shift]
     }
-}
-
-
-fun main() {
-    /*val a = intArrayOf(35, 42, 5, 15, 27, 29)
-    undoRotate(a, 0, a.lastIndex)
-    println(a.asList())*/
-    println(max(intArrayOf(0,0,0,0,0), 0, 4))
-
 }
