@@ -1,5 +1,6 @@
 package linkedList
 
+import sortAlgorithms.heapSort
 import java.util.function.Predicate
 
 
@@ -15,8 +16,8 @@ data class Node<E>(var value: E?, var next: Node<E>? = null, var prev: Node<E>? 
 
 
 fun <E> Node<E>.addNode(elem: E) {
-    val new = Node(elem, this, this.prev)
-    this.prev!!.next = new
+    val new = Node(elem, next = this, prev = this.prev)
+    if (this.prev != null) this.prev!!.next = new
     this.prev = new
 }
 
