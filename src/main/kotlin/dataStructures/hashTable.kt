@@ -35,7 +35,7 @@ class HashTable {
      * @param key key to search
      * @return true if the key is found
      */
-    fun search(key: String): Boolean {
+    fun search(key: String): Int {
         val index = key.hashFunction()
         var slot = table[index]
 
@@ -44,13 +44,13 @@ class HashTable {
         do {
             if (i == DEFAULT_TABLE_SIZE) i = 0
 
-            if (slot.entry == key && slot.status == SlotStatus.OCCUPIED) return true
-            else if (slot.status == SlotStatus.NEVER_USED) return false
+            if (slot.entry == key && slot.status == SlotStatus.OCCUPIED) return i
+            else if (slot.status == SlotStatus.NEVER_USED) return -1
 
             slot = table[++i]
         } while (i != index)
 
-        return false
+        return -1
     }
 
 
@@ -59,21 +59,12 @@ class HashTable {
      * @param key key to add
      */
     fun add(key: String) {
-        if (search(key)) return
+        val index = search(key)
+        if (index != -1) return // If the key exists do nothing
 
-        val index = key.hashFunction()
-        var slot = table[index]
-
-        var i = index
-        while (true) {
-            if (slot.status != SlotStatus.OCCUPIED) {
-                slot.entry = key
-                slot.status = SlotStatus.OCCUPIED
-                return
-            }
-            slot = table[++i]
-        }
-
+        val slot = table[key.hashFunction()]
+        slot.entry = key
+        slot.status = SlotStatus.OCCUPIED
     }
 
 
@@ -82,11 +73,10 @@ class HashTable {
      * @key key to delete.
      */
     fun delete(key: String) {
-        if (!search(key)) return
+        val index = search(key)
+        if (index == -1) return // If the key doesn't exist do nothing
 
-        val index = key.hashFunction()
-        var slot = table[index]
-
+        val slot = table[index]
         slot.status = SlotStatus.TOMBSTONE
     }
 
