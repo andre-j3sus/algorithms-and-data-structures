@@ -172,6 +172,21 @@ fun kSmallest(v: IntArray, k: Int): Int {
 }
 
 
+/**
+ * Returns the k smallest element.
+ * Time complexity: O(n)
+ */
+fun quickSelect(v: IntArray, k: Int, left: Int, right: Int): Int {
+    if (left == right) return v[left]
+    val partition = sortAlgorithms.partition(v, left, right)
+    return when {
+        partition == k - 1 -> v[partition]
+        partition > k - 1  -> quickSelect(v, k, left, partition - 1)
+        else               -> quickSelect(v, k, partition + 1, right)
+    }
+}
+
+
 fun undoRotate(v: IntArray, l: Int, r: Int) {
     val oldV = v.copyOf()
     var shift = 0
