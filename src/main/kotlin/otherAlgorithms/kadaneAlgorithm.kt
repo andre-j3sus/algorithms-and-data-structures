@@ -1,4 +1,4 @@
-package randomAlgorithms
+package otherAlgorithms
 
 
 data class Triple(val left: Int, val sum: Int, val r: Int)

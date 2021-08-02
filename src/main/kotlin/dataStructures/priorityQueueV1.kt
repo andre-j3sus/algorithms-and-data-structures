@@ -1,6 +1,6 @@
 package dataStructures
 
-import randomAlgorithms.exchange
+import otherAlgorithms.exchange
 
 
 /**

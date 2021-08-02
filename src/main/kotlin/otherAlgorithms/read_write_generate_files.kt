@@ -1,4 +1,4 @@
-package randomAlgorithms
+package otherAlgorithms
 
 
 import java.io.BufferedReader

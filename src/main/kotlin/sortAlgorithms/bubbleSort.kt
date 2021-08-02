@@ -1,6 +1,6 @@
 package sortAlgorithms
 
-import randomAlgorithms.exchange
+import otherAlgorithms.exchange
 
 
 /**

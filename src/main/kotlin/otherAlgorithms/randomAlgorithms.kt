@@ -1,4 +1,4 @@
-package randomAlgorithms
+package otherAlgorithms
 
 import dataStructures.buildMinHeap
 import dataStructures.minHeapify
@@ -174,6 +174,7 @@ fun kSmallest(v: IntArray, k: Int): Int {
 
 /**
  * Returns the k smallest element.
+ *
  * Time complexity: O(n)
  */
 fun quickSelect(v: IntArray, k: Int, left: Int, right: Int): Int {
@@ -181,8 +182,8 @@ fun quickSelect(v: IntArray, k: Int, left: Int, right: Int): Int {
     val partition = sortAlgorithms.partition(v, left, right)
     return when {
         partition == k - 1 -> v[partition]
-        partition > k - 1  -> quickSelect(v, k, left, partition - 1)
-        else               -> quickSelect(v, k, partition + 1, right)
+        partition > k - 1 -> quickSelect(v, k, left, partition - 1)
+        else -> quickSelect(v, k, partition + 1, right)
     }
 }
 
