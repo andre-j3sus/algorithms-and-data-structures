@@ -5,6 +5,9 @@ package searchAlgorithms
  * Naive pattern searching algorithm.
  *
  * Time complexity: O(m*(n-m+1)) -> Worst case
+ *
+ * @param txt text
+ * @param pat pattern to search
  */
 fun searchPatternNaive(txt: String, pat: String) {
     val n = txt.length
@@ -21,7 +24,7 @@ fun searchPatternNaive(txt: String, pat: String) {
 
 
 /**
- * Test function of pattern searching algorithms.
+ * Test function of Naive's pattern searching algorithm.
  */
 fun main() {
     val text = "AABAACAADAABAAABAA"

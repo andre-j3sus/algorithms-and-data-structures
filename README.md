@@ -15,6 +15,8 @@ Data Structures class and by my self to improve my coding skills.
     - Linear Search
     - Binary Search
     - Jump Search
+    - Naive's Pattern Search
+    - KMP's Pattern Search
 
 * Sort Algorithms
     - Insertion Sort
