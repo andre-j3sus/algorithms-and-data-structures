@@ -121,14 +121,14 @@ fun find(points1: Array<Point>, points2: Array<Point>): Array<Point>? {
 }
 
 
-data class Pair(var first: Int, var second: Int)
+data class SubArrayPair(var first: Int, var second: Int)
 
-fun minSubArrayWithSum(v: IntArray, l: Int, r: Int, s: Int): Pair {
+fun minSubArrayWithSum(v: IntArray, l: Int, r: Int, s: Int): SubArrayPair {
     var left = l
     var right = l
 
     var bestSize = v.size
-    val bestPair = Pair(left, right)
+    val bestPair = SubArrayPair(left, right)
 
     var size = 1
     var currentSum = v[l]
@@ -195,4 +195,16 @@ fun undoRotate(v: IntArray, l: Int, r: Int) {
     for (i in l..r) {
         v[i] = oldV[if (i + shift > r) i + shift - v.size else i + shift]
     }
+}
+
+
+fun twoSum(nums: IntArray, target: Int): IntArray {
+    val map = HashMap<Int, Int>(nums.size)
+
+    for (i in nums.indices) {
+        val complement = target - nums[i]
+        if (complement in map) return intArrayOf(i, map[complement]!!)
+        map[nums[i]] = i
+    }
+    return intArrayOf(-1)
 }

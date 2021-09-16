@@ -38,7 +38,7 @@ class GraphStructure<I, D> : Graph<I, D> {
     val vertices = HashMap<I, Graph.Vertex<I, D>>(INITIAL_CAPACITY)
 
 
-    private class Vertex<I, D>(override val id: I, override var data: D) : Graph.Vertex<I, D> {
+    class Vertex<I, D>(override val id: I, override var data: D) : Graph.Vertex<I, D> {
         private val adjacenciesSet = mutableSetOf<Graph.Edge<I>?>()
 
 
