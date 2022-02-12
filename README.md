@@ -1,6 +1,10 @@
 # Algorithms :chart_with_upwards_trend:
 
-> Some algorithms and stuff I studied in college and by my self.
+> Some algorithms and data structures I studied in college and by my self.
+
+<p align="center">
+  <img align="center" width="600" src="docs/algos.webp" alt="Main Pic"/>
+</p>
 
 ---
 

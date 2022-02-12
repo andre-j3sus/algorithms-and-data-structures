@@ -48,7 +48,7 @@ fun main() {
     insertionSort(a1)
     println(a1.asList()) // [-20, -9, -3, -2, 0, 2, 4, 5, 14, 19]
 
-    val a2 = arrayOf(-2, -9, 4, -3, 0, 19, 14, -20, 5, 2)
+    val a2 = arrayOf<Int>(-2, -9, 4, -3, 0, 19, 14, -20, 5, 2)
     insertionSort(a2) { o1, o2 -> o1 - o2 }
     println(a2.asList()) // [-20, -9, -3, -2, 0, 2, 4, 5, 14, 19]
 }

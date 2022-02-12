@@ -125,5 +125,4 @@ class HashSet<E>(override var size: Int) : MutableSet<E> {
     override fun isEmpty(): Boolean {
         return size == 0
     }
-
 }

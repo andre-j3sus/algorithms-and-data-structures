@@ -14,20 +14,21 @@ data class Triple(val left: Int, val sum: Int, val r: Int)
  */
 fun subArrayMax(a: IntArray, left: Int, right: Int): Triple {
     var l = left
-    var actualL = left
     var r = left - 1
+    var actualL = left
+
     var bestSum = 0
-    var actualSum = 0
+    var currentSum = 0
 
     for (i in left..right) {
-        actualSum += a[i]
-        if (actualSum > bestSum) {
-            bestSum = actualSum
+        currentSum += a[i]
+        if (currentSum > bestSum) {
+            bestSum = currentSum
             r = i
             l = actualL
-        } else if (actualSum < 0) {
+        } else if (currentSum < 0) {
             actualL = if (i == right) i else i + 1
-            actualSum = 0
+            currentSum = 0
         }
 
     }
